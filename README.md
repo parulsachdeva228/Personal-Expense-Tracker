@@ -210,6 +210,9 @@ email: user@amlgo.com
 password: amlgo
 
 ### Deployed Link: 
+- Frontend (Versel): https://personal-expense-tracker-pf1c234lt-paruls-projects-c3c8915f.vercel.app/
+- Backend (Render): https://personal-expense-tracker-3cph.onrender.com/
+-Flask (Render): https://flask-suggestion-api.onrender.com/
 
 ### Extra features added
 Impleted Admin login to view users and remove users
