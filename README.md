@@ -37,7 +37,7 @@ Make sure MongoDB is running on system:
 # Start Node.js server
 node backend/server.js
 ```
-The backend will run on `http://localhost:5000`
+The backend will run on `https://personal-expense-tracker-3cph.onrender.com/`
 
 ### 4. Start the Python Smart Suggestions Service
 ```bash

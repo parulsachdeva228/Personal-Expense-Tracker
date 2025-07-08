@@ -26,12 +26,12 @@ app.use(express.json());
 
 // MongoDB connection
 mongoose
-    .connect('mongodb://127.0.0.1:27017/financeTrackerDB')
-    // .connect(process.env.MONGO_URI, {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true
-    // })
-    .then(() => console.log('Connected to MongoDB'))
+    // .connect('mongodb://127.0.0.1:27017/financeTrackerDB')
+    .connect('mongodb+srv://Parul466:passcode@clusterone.240y7j8.mongodb.net/ExpenseTrackerDB', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    })
+    .then(() => console.log('Connected to MongoDB Atlas'))
     .catch((err) => console.log(err));
 
 // Routes

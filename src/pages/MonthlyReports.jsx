@@ -22,7 +22,7 @@ const MonthlyReports = () => {
       const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
       
       // Fetch analytics for the month
-      const analyticsResponse = await axios.get('http://localhost:5000/api/analytics', {
+      const analyticsResponse = await axios.get('https://personal-expense-tracker-3cph.onrender.com/api/analytics', {
         headers: { Authorization: `Bearer ${token}` },
         params: {
           startDate: startDate.toISOString().split('T')[0],
@@ -32,7 +32,7 @@ const MonthlyReports = () => {
       setAnalytics(analyticsResponse.data);
 
       // Fetch transactions for the month
-      const transactionsResponse = await axios.get('http://localhost:5000/api/transactions', {
+      const transactionsResponse = await axios.get('https://personal-expense-tracker-3cph.onrender.com/api/transactions', {
         headers: { Authorization: `Bearer ${token}` }
       });
       

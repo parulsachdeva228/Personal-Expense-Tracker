@@ -31,7 +31,7 @@ const AddExpense = () => {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/categories', {
+      const response = await axios.get('https://personal-expense-tracker-3cph.onrender.com/api/categories', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCategories(response.data);
@@ -43,7 +43,7 @@ const AddExpense = () => {
   const fetchTransaction = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:5000/api/transactions/${id}`, {
+      const response = await axios.get(`https://personal-expense-tracker-3cph.onrender.com/api/transactions/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const transaction = response.data;
@@ -88,11 +88,11 @@ const AddExpense = () => {
       };
 
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/transactions/${id}`, data, {
+        await axios.put(`https://personal-expense-tracker-3cph.onrender.com/api/transactions/${id}`, data, {
           headers: { Authorization: `Bearer ${token}` }
         });
       } else {
-        await axios.post('http://localhost:5000/api/transactions', data, {
+        await axios.post('https://personal-expense-tracker-3cph.onrender.com/api/transactions', data, {
           headers: { Authorization: `Bearer ${token}` }
         });
       }

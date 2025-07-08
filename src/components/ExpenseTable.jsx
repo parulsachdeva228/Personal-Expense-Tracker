@@ -33,7 +33,7 @@ const ExpenseTable = ({ onTransactionUpdate }) => {
   const fetchTransactions = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/transactions', {
+      const response = await axios.get('https://personal-expense-tracker-3cph.onrender.com/api/transactions', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTransactions(response.data);
@@ -51,7 +51,7 @@ const ExpenseTable = ({ onTransactionUpdate }) => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/transactions/${id}`, {
+      await axios.delete(`https://personal-expense-tracker-3cph.onrender.com/api/transactions/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchTransactions();

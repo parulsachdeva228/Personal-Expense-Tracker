@@ -23,7 +23,7 @@ export const AdminDashboard = () => {
     try {
       const token = localStorage.getItem('token');
       // Fetch all users
-      const usersRes = await axios.get('http://localhost:5000/api/admin/users', {
+      const usersRes = await axios.get('https://personal-expense-tracker-3cph.onrender.com/api/admin/users', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(usersRes.data);
@@ -38,7 +38,7 @@ export const AdminDashboard = () => {
     if (!window.confirm('Are you sure you want to remove this user?')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/admin/users/${userId}`, {
+      await axios.delete(`https://personal-expense-tracker-3cph.onrender.com/api/admin/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(users.filter(u => u._id !== userId));

@@ -12,7 +12,7 @@ const BudgetAlerts = () => {
   const fetchBudgets = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/budgets', {
+      const response = await axios.get('https://personal-expense-tracker-3cph.onrender.com/api/budgets', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBudgets(response.data);
