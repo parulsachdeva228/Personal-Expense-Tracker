@@ -1,5 +1,5 @@
 const Transaction = require('../models/Transaction');
-const { spawn } = require('child_process');
+const axios = require('axios');
 
 const analyticsController = {
   // Get analytics data
@@ -62,56 +62,30 @@ const analyticsController = {
   }
 };
 
-// Function to get smart suggestions from Python script
-const getSmartSuggestions = (transactions) => {
-  return new Promise((resolve, reject) => {
-    try {
-      const pythonProcess = spawn('python', ['../suggestion-api/app.py']);
-      
-      let result = '';
-      let error = '';
+// Function to get smart suggestions from Flask API
+const getSmartSuggestions = async (transactions) => {
+  try {
+    const expenseData = transactions
+      .filter(t => t.type === 'expense')
+      .map(t => ({
+        category: t.category,
+        amount: t.amount,
+        date: t.date,
+        description: t.description
+      }));
 
-      pythonProcess.stdout.on('data', (data) => {
-        result += data.toString();
-      });
+    // Call the Flask API
+    const response = await axios.post(
+      'https://flask-suggestion-api.onrender.com/suggest',
+      expenseData,
+      { headers: { 'Content-Type': 'application/json' } }
+    );
 
-      pythonProcess.stderr.on('data', (data) => {
-        error += data.toString();
-      });
-
-      pythonProcess.on('close', (code) => {
-        if (code !== 0) {
-          console.error('Python script error:', error);
-          resolve([]);
-        } else {
-          try {
-            const suggestions = JSON.parse(result);
-            resolve(suggestions);
-          } catch (e) {
-            console.error('Error parsing Python output:', e);
-            resolve([]);
-          }
-        }
-      });
-
-      // Send transaction data to Python script
-      const expenseData = transactions
-        .filter(t => t.type === 'expense')
-        .map(t => ({
-          category: t.category,
-          amount: t.amount,
-          date: t.date,
-          description: t.description
-        }));
-
-      pythonProcess.stdin.write(JSON.stringify(expenseData));
-      pythonProcess.stdin.end();
-
-    } catch (error) {
-      console.error('Error running Python script:', error);
-      resolve([]);
-    }
-  });
+    return response.data; // This will be the suggestions array
+  } catch (error) {
+    console.error('Error getting suggestions:', error);
+    return [];
+  }
 };
 
 module.exports = analyticsController; 

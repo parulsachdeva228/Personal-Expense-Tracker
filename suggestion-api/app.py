@@ -1,8 +1,11 @@
-import sys
-import json
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pandas as pd
 from datetime import datetime, timedelta, timezone
 import numpy as np
+
+app = Flask(__name__)
+CORS(app)
 
 def analyze_expenses(expense_data):
     """
@@ -105,23 +108,16 @@ def analyze_expenses(expense_data):
     except Exception as e:
         return [f"Error analyzing expenses: {str(e)}"]
 
-def main():
-    """Main function to read input and return suggestions"""
+@app.route("/suggest", methods=["POST"])
+def get_suggestions():
     try:
-        # Read input from stdin
-        input_data = sys.stdin.read()
-        expense_data = json.loads(input_data)
-        
-        # Analyze and get suggestions
+        expense_data = request.get_json()
         suggestions = analyze_expenses(expense_data)
-        
-        # Output as JSON
-        print(json.dumps(suggestions))
-        
-    except json.JSONDecodeError:
-        print(json.dumps(["Error: Invalid JSON input"]))
+        return jsonify(suggestions)
     except Exception as e:
-        print(json.dumps([f"Error: {str(e)}"]))
+        return jsonify([f"Error: {str(e)}"])
 
+# 👇 required for Render
 if __name__ == "__main__":
-    main()
+    import os
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
