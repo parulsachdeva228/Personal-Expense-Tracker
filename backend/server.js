@@ -28,8 +28,8 @@ app.use(express.json());
 mongoose
     // .connect('mongodb://127.0.0.1:27017/financeTrackerDB')
     .connect('mongodb+srv://Parul466:passcode@clusterone.240y7j8.mongodb.net/ExpenseTrackerDB', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true
     })
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch((err) => console.log(err));
