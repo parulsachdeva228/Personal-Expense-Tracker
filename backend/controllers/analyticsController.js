@@ -76,7 +76,7 @@ const getSmartSuggestions = async (transactions) => {
 
     // Call the Flask API
     const response = await axios.post(
-      'https://flask-suggestion-api.onrender.com/suggest',
+      'https://personal-expense-tracker-suggestion.onrender.com/suggest',
       expenseData,
       { headers: { 'Content-Type': 'application/json' } }
     );
